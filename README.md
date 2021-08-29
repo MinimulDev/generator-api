@@ -7,7 +7,7 @@ using [yarn](https://classic.yarnpkg.com/en/docs/install).
 
 ```bash
 yarn global add yo
-yarn global add generator-minimul-api
+yarn global add @minimuldev/generator-minimul-api
 ```
 
 Then generate your new project:
