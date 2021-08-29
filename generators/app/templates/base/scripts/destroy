@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if ! command -v terraform &>/dev/null; then
+  echo "please install terraform to deploy"
+  return 1
+fi
+
+terraform -chdir="terraform" destroy "$@"
