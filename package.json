@@ -1,0 +1,32 @@
+{
+  "name": "generator-minimul-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generators/index.js",
+  "scripts": {},
+  "devDependencies": {
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^1.7.0"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "mkdirp": "^1.0.4",
+    "yeoman-generator": "^3.1.1",
+    "yosay": "^2.0.2"
+  },
+  "author": {
+    "name": "Brendan Goldberg",
+    "email": "goldberg.brendan@gmail.com"
+  },
+  "homepage": "",
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "license": "UNLICENSED"
+}
