@@ -1,5 +1,5 @@
 {
-  "name": "generator-minimul-api",
+  "name": "@minimuldev/generator-minimul-api",
   "version": "1.0.0",
   "description": "",
   "main": "generators/index.js",
@@ -17,10 +17,6 @@
     "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.2"
   },
-  "author": {
-    "name": "Brendan Goldberg",
-    "email": "goldberg.brendan@gmail.com"
-  },
   "homepage": "",
   "files": [
     "generators"
@@ -28,5 +24,5 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "license": "UNLICENSED"
+  "license": "MIT"
 }
