@@ -131,6 +131,12 @@ module.exports = class extends Generator {
             this.templatePath("_github"),
             this.destinationPath(".github")
         )
+
+
+        this.fs.copyTpl(
+            this.templatePath("_gitignore"),
+            this.destinationPath(".gitignore")
+        )
     }
 
     async install() {
