@@ -126,6 +126,11 @@ module.exports = class extends Generator {
                 resourcesPackageName: serverResourcesPackage
             }
         )
+
+        this.fs.copyTpl(
+            this.templatePath("_github"),
+            this.destinationPath(".github")
+        )
     }
 
     async install() {

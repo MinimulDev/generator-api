@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+./gradlew clean build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dquarkus.native.enable-jni=true
