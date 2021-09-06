@@ -9,7 +9,6 @@ buildscript {
     dependencies {
         classpath(kotlin("gradle-plugin", version = Deps.Kotlin.version))
         classpath("org.jetbrains.kotlin:kotlin-allopen:${Deps.Kotlin.version}")
-        classpath(Deps.Shadow.gradle)
     }
 
 }

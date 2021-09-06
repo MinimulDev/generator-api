@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedFunction
+
 const Generator = require("yeoman-generator")
 const chalk = require("chalk")
 const yosay = require("yosay")
@@ -9,7 +11,7 @@ const packageRegex = new RegExp("^([A-Za-z]{1}[A-Za-z\\d_]*\\.)+[A-Za-z][A-Za-z\
 const projectName = new RegExp("^([^\\/]+)$")
 const rootPathRegex = new RegExp("^\\/([A-z0-9-_+]+\\/)*([A-z0-9-_+]+)$")
 
-// noinspection JSUnusedGlobalSymbols
+// noinspection JSUnusedGlobalSymbols,JSUnresolvedFunction
 module.exports = class extends Generator {
     async prompting() {
         this.log(yosay(`Welcome to the gnarly ${chalk.red("minimul-api")} generator!`))
@@ -78,8 +80,7 @@ module.exports = class extends Generator {
         const mainPackageClass = basePackage + ".ServerKt"
         const serverPackageDirs = basePackage.replace(/\./g, "/")
         const serverHandlersPackage = basePackage + ".handlers"
-
-        console.log(`server package dirs ${serverPackageDirs}`)
+        const serverResourcesPackage = basePackage + ".resources"
 
         const apiName = this.answers.projectName
 
@@ -99,24 +100,37 @@ module.exports = class extends Generator {
         const cwd = path.resolve(process.cwd())
 
         const serverDir = path.resolve(cwd, "server/src/main/kotlin", serverPackageDirs)
+        const serverTestDir = path.resolve(cwd, "server/src/test/kotlin", serverPackageDirs)
         const coreDir = path.resolve(cwd, "core/src/main/kotlin", serverPackageDirs)
 
         await mkdirp(serverDir)
         await mkdirp(coreDir)
 
         this.fs.copyTpl(
-            this.templatePath("fillins/server"),
+            this.templatePath("fillins/server/main"),
             this.destinationPath(path.resolve(serverDir)),
             {
                 serverPackageName: basePackage,
                 rootPath: rootPath,
-                handlersPackageName: serverHandlersPackage
+                handlersPackageName: serverHandlersPackage,
+                resourcesPackageName: serverResourcesPackage
+            }
+        )
+
+        this.fs.copyTpl(
+            this.templatePath("fillins/server/test"),
+            this.destinationPath(path.resolve(serverTestDir)),
+            {
+                serverPackageName: basePackage,
+                rootPath: rootPath,
+                resourcesPackageName: serverResourcesPackage
             }
         )
     }
 
     async install() {
         this.log(yosay("installing dependencies + assembling API"))
+        // noinspection JSCheckFunctionSignatures
         const build = spawn("./gradlew", ["clean", "build"])
         build.stdout.on("data", (data) => {
             console.log(data.toString())

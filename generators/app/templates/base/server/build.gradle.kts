@@ -5,7 +5,6 @@ import Deps.Server.testRuntimes
 
 plugins {
     kotlin("jvm")
-    id("com.github.johnrengelman.shadow")
     id("io.quarkus") version "2.1.3.Final"
     id("kotlin-allopen")
 }
@@ -24,9 +23,6 @@ dependencies {
 }
 
 tasks {
-    withType<Zip>().configureEach {
-        destinationDir = file("${project.buildDir}/lib")
-    }
     allOpen {
         annotation("javax.ws.rs.Path")
         annotation("javax.enterprise.context.ApplicationScoped")

@@ -12,11 +12,6 @@ object Deps {
         }
     }
 
-    object Shadow {
-        private const val version = "7.0.0"
-        const val gradle = "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:$version"
-    }
-
     object Quarkus {
         private const val version = "2.1.3.Final"
         const val bom = "io.quarkus:quarkus-bom:$version"
