@@ -1,0 +1,16 @@
+quarkus:
+  config:
+    profile:
+      parent: common
+
+"%common":
+  quarkus:
+    resteasy:
+      gzip:
+        enabled: true
+    log:
+      level: INFO
+    http:
+      access-log:
+        enabled: true
+        exclude-pattern: long

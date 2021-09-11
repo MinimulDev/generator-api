@@ -19,6 +19,10 @@ object Deps {
         const val lambda = "io.quarkus:quarkus-amazon-lambda-rest"
         const val rest = "io.quarkus:quarkus-resteasy"
         const val jackson = "io.quarkus:quarkus-resteasy-jackson"
+        const val yaml = "io.quarkus:quarkus-config-yaml"
+
+        const val client = "io.quarkus:quarkus-rest-client"
+        const val clientJackson = "io.quarkus:quarkus-rest-client-jackson"
 
         const val junit = "io.quarkus:quarkus-junit5"
         const val restAssured = "io.rest-assured:rest-assured"
@@ -29,22 +33,9 @@ object Deps {
         const val core = "org.koin:koin-core:$version"
     }
 
-    object Exposed {
-        private const val version = "0.29.1"
-        const val core = "org.jetbrains.exposed:exposed-core:$version"
-        const val jdbc = "org.jetbrains.exposed:exposed-jdbc:$version"
-        const val dao = "org.jetbrains.exposed:exposed-dao:$version"
-        const val time = "org.jetbrains.exposed:exposed-java-time:$version"
-    }
-
     object Postgres {
         private const val version = "42.2.19"
         const val core = "org.postgresql:postgresql:$version"
-    }
-
-    object DotEnv {
-        private const val version = "6.2.2"
-        const val core = "io.github.cdimascio:dotenv-kotlin:$version"
     }
 
     object Jupiter {
@@ -63,13 +54,6 @@ object Deps {
         const val truth = "com.google.truth:truth:$version"
     }
 
-    object TestContainers {
-        private const val version = "1.15.2"
-        const val core = "org.testcontainers:testcontainers:$version"
-        const val jupiter = "org.testcontainers:junit-jupiter:$version"
-        const val postgres = "org.testcontainers:postgresql:$version"
-    }
-
     object H2 {
         private const val version = "1.4.200"
         const val core = "com.h2database:h2:$version"
@@ -77,6 +61,12 @@ object Deps {
 
     object Jackson {
         const val core = "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0-rc1"
+    }
+
+    object Ktorm {
+        private const val version = "3.4.1"
+        const val core = "org.ktorm:ktorm-core:$version"
+        const val jackson = "org.ktorm:ktorm-jackson:$version"
     }
 
     private fun DependencyHandler.implementations(impls: List<String>) {
@@ -97,23 +87,8 @@ object Deps {
         }
     }
 
-    private fun DependencyHandler.integrationTestImplementations(impls: List<String>) {
-        for (impl in impls) {
-            add("integrationTestImplementation", impl)
-        }
-    }
-
-
-    private fun DependencyHandler.integrationTestRuntimes(impls: List<String>) {
-        for (impl in impls) {
-            add("integrationTestRuntimeOnly", impl)
-        }
-    }
-
     private val sharedImplementations = listOf(
-        Koin.core,
-        DotEnv.core,
-        Exposed.core
+        Koin.core
     )
 
     private val sharedTestImplementations = listOf(
@@ -131,21 +106,12 @@ object Deps {
     object Core {
         private val implementations = listOf(
             Postgres.core,
-            Exposed.core,
-            Exposed.jdbc,
-            Exposed.dao,
-            Exposed.time
+            Jackson.core,
+            Ktorm.core,
+            Ktorm.jackson
         )
 
-        private val testImplementations = listOf(
-            Exposed.core,
-            Exposed.jdbc,
-            Exposed.dao,
-            Exposed.time,
-            TestContainers.core,
-            TestContainers.jupiter,
-            TestContainers.postgres
-        )
+        private val testImplementations = emptyList<String>()
 
         private val testRuntimes = emptyList<String>()
 
@@ -163,7 +129,13 @@ object Deps {
             Quarkus.lambda,
             Quarkus.rest,
             Quarkus.jackson,
-            Jackson.core
+            Quarkus.yaml,
+            Quarkus.client,
+            Quarkus.clientJackson,
+            Jackson.core,
+            Postgres.core,
+            Ktorm.core,
+            Ktorm.jackson
         )
 
         private val testImplementations = listOf<String>(
@@ -173,20 +145,6 @@ object Deps {
 
         private val testRuntimes = listOf(
             Jupiter.runtime
-        )
-
-        private val integrationTestRuntimes = listOf(
-            Jupiter.runtime
-        )
-
-        private val integrationTestImplementations = listOf(
-            Jupiter.core,
-            Google.truth,
-            Kotlin.Coroutines.test,
-            TestContainers.core,
-            TestContainers.jupiter,
-            TestContainers.postgres,
-            Postgres.core
         )
 
         fun DependencyHandler.implementations() = implementations(sharedImplementations + implementations)

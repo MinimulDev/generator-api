@@ -79,8 +79,6 @@ module.exports = class extends Generator {
 
         const mainPackageClass = basePackage + ".ServerKt"
         const serverPackageDirs = basePackage.replace(/\./g, "/")
-        const serverHandlersPackage = basePackage + ".handlers"
-        const serverResourcesPackage = basePackage + ".resources"
 
         const apiName = this.answers.projectName
 
@@ -111,9 +109,16 @@ module.exports = class extends Generator {
             this.destinationPath(path.resolve(serverDir)),
             {
                 serverPackageName: basePackage,
-                rootPath: rootPath,
-                handlersPackageName: serverHandlersPackage,
-                resourcesPackageName: serverResourcesPackage
+                rootPath: rootPath
+            }
+        )
+
+        this.fs.copyTpl(
+            this.templatePath("fillins/core/main"),
+            this.destinationPath(path.resolve(coreDir)),
+            {
+                serverPackageName: basePackage,
+                rootPath: rootPath
             }
         )
 
@@ -122,8 +127,7 @@ module.exports = class extends Generator {
             this.destinationPath(path.resolve(serverTestDir)),
             {
                 serverPackageName: basePackage,
-                rootPath: rootPath,
-                resourcesPackageName: serverResourcesPackage
+                rootPath: rootPath
             }
         )
 

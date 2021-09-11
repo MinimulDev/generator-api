@@ -10,6 +10,10 @@ object Config {
 
     private lateinit var v: Version
 
+    val optIn = listOf(
+        "org.koin.core.component.KoinApiExtension"
+    )
+
     fun Project.loadVersion(): Version {
         if (!::v.isInitialized) {
             val props = Properties()

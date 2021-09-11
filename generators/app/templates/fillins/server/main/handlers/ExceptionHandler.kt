@@ -1,4 +1,4 @@
-package <%= handlersPackageName %>
+package <%= serverPackageName %>.handlers
 
 import javax.annotation.Priority
 import javax.ws.rs.Priorities

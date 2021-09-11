@@ -1,4 +1,4 @@
-package <%= resourcesPackageName %>
+package <%= serverPackageName %>.resources
 
 import <%= serverPackageName %>.rootPath
 import io.quarkus.test.junit.QuarkusTest

@@ -27,6 +27,7 @@ allprojects {
             kotlinOptions {
                 targetCompatibility = Config.javaVersion.toString()
                 sourceCompatibility = Config.javaVersion.toString()
+                freeCompilerArgs = freeCompilerArgs + Config.optIn.map { "-Xopt-in=$it" }
             }
         }
     }
