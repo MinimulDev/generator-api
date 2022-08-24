@@ -3,6 +3,7 @@
   "version": "1.1.2",
   "description": "",
   "main": "generators/index.js",
+  "type": "module",
   "scripts": {},
   "devDependencies": {
     "yeoman-assert": "^3.1.1",
