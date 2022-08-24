@@ -1,0 +1,93 @@
+[versions]
+kotlinVersion = "1.6.21"
+quarkusVersion = "2.11.2.Final"
+postgresVersion = "42.2.19"
+jupiterVersion = "5.4.2"
+truthVersion = "1.1.2"
+h2Version = "1.4.200"
+jacksonVersion = "2.13.0-rc1"
+ktormVersion = "3.4.1"
+mockkVersion = "1.10.6"
+jandexVersion = "0.13.2"
+
+[plugins]
+quarkusPlugin = { id = "io.quarkus", version.ref = "quarkusVersion" }
+jandexPlugin = { id = "org.kordamp.gradle.jandex", version.ref = "jandexVersion" }
+
+[libraries]
+kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+kotlinAllOpen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlinVersion" }
+
+quarkusBom = { module = "io.quarkus:quarkus-bom", version.ref = "quarkusVersion" }
+quarkusKotlin = { module = "io.quarkus:quarkus-kotlin" }
+quarkusLambda = { module = "io.quarkus:quarkus-amazon-lambda-rest" }
+quarkusResteasy = { module = "io.quarkus:quarkus-resteasy" }
+quarkusJackson = { module = "io.quarkus:quarkus-resteasy-jackson" }
+quarkusYaml = { module = "io.quarkus:quarkus-config-yaml" }
+quarkusRestClient = { module = "io.quarkus:quarkus-rest-client" }
+quarkusClientJackson = { module = "io.quarkus:quarkus-rest-client-jackson" }
+quarkusJunit = { module = "io.quarkus:quarkus-junit5" }
+quarkusRestAssured = { module = "io.rest-assured:rest-assured" }
+quarkusRuntime = { module = "io.quarkus:quarkus-core", version.ref = "quarkusVersion" }
+
+postgresCore = { module = "org.postgresql:postgresql", version.ref = "postgresVersion" }
+
+jupiterCore = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiterVersion" }
+jupiterRuntime = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiterVersion" }
+
+truthCore = { module = "com.google.truth:truth", version.ref = "truthVersion" }
+
+h2Core = { module = "com.h2database:h2", version.ref = "h2Version" }
+
+jacksonKotlinModule = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonVersion" }
+
+ktormCore = { module = "org.ktorm:ktorm-core", version.ref = "ktormVersion" }
+ktormJackson = { module = "org.ktorm:ktorm-jackson", version.ref = "ktormVersion" }
+
+mockkCore = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+
+[bundles]
+root = [
+    "kotlinGradle",
+    "kotlinAllOpen"
+]
+sharedImplementations = [
+]
+sharedTestImplementations = [
+    "jupiterCore",
+    "mockkCore",
+    "truthCore"
+]
+sharedTestRuntimes = [
+    "jupiterRuntime"
+]
+coreImplementations = [
+    "quarkusRuntime",
+    "postgresCore",
+    "jacksonKotlinModule",
+    "ktormCore",
+    "ktormJackson"
+]
+coreTestImplementations = [
+]
+coreTestRuntimes = [
+]
+serverImplementations = [
+    "quarkusKotlin",
+    "quarkusLambda",
+    "quarkusResteasy",
+    "quarkusJackson",
+    "quarkusYaml",
+    "quarkusRestClient",
+    "quarkusClientJackson",
+    "jacksonKotlinModule",
+    "postgresCore",
+    "ktormCore",
+    "ktormJackson"
+]
+serverTestImplementations = [
+    "quarkusJunit",
+    "quarkusRestAssured"
+]
+serverTestRuntimes = [
+]

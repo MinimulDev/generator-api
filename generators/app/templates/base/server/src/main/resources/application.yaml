@@ -14,3 +14,8 @@ quarkus:
       access-log:
         enabled: true
         exclude-pattern: long
+  datasources:
+    local:
+      url: "https://example.com"
+      user: "username"
+      password: "password"
