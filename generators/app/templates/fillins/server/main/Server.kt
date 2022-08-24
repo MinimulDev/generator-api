@@ -1,13 +1,10 @@
 package <%= serverPackageName %>
 
-import <%= serverPackageName %>.data.repositories.repositoryModule
-import <%= serverPackageName %>.domain.domainModule
-import <%= serverPackageName %>.resources.resourceModule
+import <%= serverPackageName %>.configs.DataSourceConfig
 import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.QuarkusApplication
 import io.quarkus.runtime.annotations.QuarkusMain
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
+import javax.inject.Inject
 import javax.ws.rs.ApplicationPath
 import javax.ws.rs.core.Application
 
@@ -23,21 +20,13 @@ class Main {
             Quarkus.run(App::class.java, *args)
         }
 
-        class App : QuarkusApplication {
+        private class App : QuarkusApplication {
+
+            @Inject
+            @Suppress("unused")
+            lateinit var datasources: DataSourceConfig
 
             override fun run(vararg args: String): Int {
-                startKoin {
-                    val runtimeModule = module {
-                    }
-                    modules(
-                        listOf(
-                            runtimeModule,
-                            repositoryModule,
-                            domainModule,
-                            resourceModule
-                        )
-                    )
-                }
                 Quarkus.waitForExit()
                 return 0
             }

@@ -146,7 +146,8 @@ module.exports = class extends Generator {
     async install() {
         this.log(yosay("installing dependencies + assembling API"))
         // noinspection JSCheckFunctionSignatures
-        const build = spawn("./gradlew", ["clean", "build"])
+        // const build = spawn("./gradlew", ["clean", "build", "quarkusDev"])
+        const build = spawn("./gradlew", ["quarkusDev"])
         build.stdout.on("data", (data) => {
             console.log(data.toString())
         })

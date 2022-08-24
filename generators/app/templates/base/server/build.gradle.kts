@@ -1,12 +1,10 @@
 import Config.loadVersion
-import Deps.Server.implementations
-import Deps.Server.testImplementations
-import Deps.Server.testRuntimes
 
 plugins {
     kotlin("jvm")
-    id("io.quarkus") version "2.1.3.Final"
     id("kotlin-allopen")
+    alias(libs.plugins.quarkusPlugin)
+    alias(libs.plugins.jandexPlugin)
 }
 
 group = Config.group
@@ -15,11 +13,14 @@ version = project.loadVersion().toString()
 dependencies {
     implementation(project(":core"))
 
-    implementation(platform(Deps.Quarkus.bom))
-    implementations()
+    implementation(platform(libs.quarkusBom))
+    implementation(libs.bundles.sharedImplementations)
+    implementation(libs.bundles.serverImplementations)
 
-    testRuntimes()
-    testImplementations()
+    testRuntimeOnly(libs.bundles.sharedTestRuntimes)
+    testRuntimeOnly(libs.bundles.serverTestRuntimes)
+    testImplementation(libs.bundles.sharedTestImplementations)
+    testImplementation(libs.bundles.serverTestImplementations)
 }
 
 tasks {

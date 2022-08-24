@@ -1,7 +1,4 @@
 import Config.loadVersion
-import Deps.Core.implementations
-import Deps.Core.testImplementations
-import Deps.Core.testRuntimes
 
 plugins {
     kotlin("jvm")
@@ -13,8 +10,11 @@ version = project.loadVersion().toString()
 dependencies {
     implementation(kotlin("stdlib"))
 
-    implementations()
+    implementation(libs.bundles.sharedImplementations)
+    implementation(libs.bundles.coreImplementations)
 
-    testRuntimes()
-    testImplementations()
+    testRuntimeOnly(libs.bundles.sharedTestRuntimes)
+    testRuntimeOnly(libs.bundles.coreTestRuntimes)
+    testImplementation(libs.bundles.sharedTestImplementations)
+    testImplementation(libs.bundles.coreTestImplementations)
 }

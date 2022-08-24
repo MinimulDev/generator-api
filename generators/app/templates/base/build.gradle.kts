@@ -1,16 +1,12 @@
 buildscript {
-
     repositories {
         gradlePluginPortal()
         mavenCentral()
         google()
     }
-
     dependencies {
-        classpath(kotlin("gradle-plugin", version = Deps.Kotlin.version))
-        classpath("org.jetbrains.kotlin:kotlin-allopen:${Deps.Kotlin.version}")
+        classpath(libs.bundles.root)
     }
-
 }
 
 allprojects {
@@ -23,10 +19,13 @@ allprojects {
         withType<Test>().configureEach {
             useJUnitPlatform()
         }
+        withType<JavaCompile>().configureEach {
+            targetCompatibility = Config.javaVersion.toString()
+            sourceCompatibility = Config.javaVersion.toString()
+        }
         withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
             kotlinOptions {
-                targetCompatibility = Config.javaVersion.toString()
-                sourceCompatibility = Config.javaVersion.toString()
+                jvmTarget = Config.javaVersion.toString()
                 freeCompilerArgs = freeCompilerArgs + Config.optIn.map { "-Xopt-in=$it" }
             }
         }
