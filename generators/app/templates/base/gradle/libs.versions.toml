@@ -28,6 +28,7 @@ quarkusRestClient = { module = "io.quarkus:quarkus-rest-client" }
 quarkusClientJackson = { module = "io.quarkus:quarkus-rest-client-jackson" }
 quarkusJunit = { module = "io.quarkus:quarkus-junit5" }
 quarkusRestAssured = { module = "io.rest-assured:rest-assured" }
+quarkusRuntime = { module = "io.quarkus:quarkus-core", version.ref = "quarkusVersion" }
 
 postgresCore = { module = "org.postgresql:postgresql", version.ref = "postgresVersion" }
 
@@ -61,6 +62,7 @@ sharedTestRuntimes = [
     "jupiterRuntime"
 ]
 coreImplementations = [
+    "quarkusRuntime",
     "postgresCore",
     "jacksonKotlinModule",
     "ktormCore",
