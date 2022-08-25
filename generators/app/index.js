@@ -97,16 +97,27 @@ module.exports = class extends Generator {
 
         const cwd = path.resolve(process.cwd())
 
-        const serverDir = path.resolve(cwd, "server/src/main/kotlin", serverPackageDirs)
+        const serverSrcDir = path.resolve(cwd, "server/src/main/kotlin", serverPackageDirs)
+        const serverResourcesDir = path.resolve(cwd, "server/src/main/resources")
         const serverTestDir = path.resolve(cwd, "server/src/test/kotlin", serverPackageDirs)
         const coreDir = path.resolve(cwd, "core/src/main/kotlin", serverPackageDirs)
 
-        await mkdirp(serverDir)
+        await mkdirp(serverSrcDir)
+        await mkdirp(serverResourcesDir)
         await mkdirp(coreDir)
 
         this.fs.copyTpl(
-            this.templatePath("fillins/server/main"),
-            this.destinationPath(path.resolve(serverDir)),
+            this.templatePath("fillins/server/main/kotlin"),
+            this.destinationPath(path.resolve(serverSrcDir)),
+            {
+                serverPackageName: basePackage,
+                rootPath: rootPath
+            }
+        )
+
+        this.fs.copyTpl(
+            this.templatePath("fillins/server/main/resources"),
+            this.destinationPath(path.resolve(serverResourcesDir)),
             {
                 serverPackageName: basePackage,
                 rootPath: rootPath
@@ -135,7 +146,6 @@ module.exports = class extends Generator {
             this.templatePath("_github"),
             this.destinationPath(".github")
         )
-
 
         this.fs.copyTpl(
             this.templatePath("_gitignore"),
