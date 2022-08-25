@@ -5,11 +5,6 @@ import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.QuarkusApplication
 import io.quarkus.runtime.annotations.QuarkusMain
 import javax.inject.Inject
-import javax.ws.rs.ApplicationPath
-import javax.ws.rs.core.Application
-
-@ApplicationPath("<%= rootPath %>")
-class Server : Application()
 
 @QuarkusMain
 class Main {

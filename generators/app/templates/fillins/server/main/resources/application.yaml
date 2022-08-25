@@ -11,6 +11,7 @@ quarkus:
     log:
       level: INFO
     http:
+      root-path: <%= rootPath %>
       access-log:
         enabled: true
         exclude-pattern: long
